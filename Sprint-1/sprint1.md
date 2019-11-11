@@ -5,7 +5,7 @@
 
 ###  Use case 1:
 
-diagram link:https://github.com/Natsukie/glgw7/blob/master/Assignemnt-nine/UseCase/use%20case%201.jpg
+diagram link:https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/use%20case%201.jpg
 
 Title: Repo and Repo Group display pages
 
@@ -13,7 +13,7 @@ Description: It is two pages basic on data, you can choose to go to repo/repo-gr
 
 Actor: User and the administrators from augur data system
 
-Goals: Main goal is the user can see repo pages is to display repo and can use repo group pages to search the repo detail follow by repo groups.
+Goals: Main goals is display repo data from augur. Also, user can basic use repo-group to find a specific repo-data.
 
 Fail: No result if there no response from Augur end point.
 
@@ -36,7 +36,7 @@ Second case:
 
 ###  Use case 2:
 
-diagram link:https://github.com/Natsukie/glgw7/blob/master/Assignemnt-nine/UseCase/use%20case%202.jpg
+diagram link:https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/use%20case%202.jpg
 
 Title: Top commit, pull request, and contributor detail display pages
 
@@ -58,7 +58,7 @@ Steps for execution:
 
 ### use case 3:
 
-diagram link:https://github.com/Natsukie/glgw7/blob/master/Assignemnt-nine/UseCase/use%20case%203.jpg
+diagram link:https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/use%20case%203.jpg
 
 Title: Top commit, pull request, and contributor detail display pages
 
