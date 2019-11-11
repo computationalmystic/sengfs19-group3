@@ -557,6 +557,30 @@ def contributors_code_development(self, repo_group_id, repo_id=None, period='all
                                                                 'begin_date': begin_date, 'end_date': end_date})
     return results
 
+
+@annotate(tag='contributors-by-company')
+def contributors_by_company(self, repo_group_id, repo_id=None):
+    """
+    Returns the number of contributors categorized by each company.
+    """
+    if repo_id:
+        numOfContribsByCompany = s.sql.text("""
+                SELECT cntrb_company, COUNT(*) AS counter FROM contributors
+                GROUP BY cntrb_company
+                ORDER BY counter desc;
+                """)
+        results = pd.read_sql(numOfContribsByCompany, self.database, params={"repo_id": repo_id})
+        return results
+    else:
+        numOfContribsByCompany = s.sql.text("""
+            SELECT cntrb_company, COUNT(*) as counter from contributors
+            GROUP BY cntrb_company
+            ORDER BY counter desc;
+            """)
+        results = pd.read_sql(numOfContribsByCompany, self.database, params={"repo_group_id": repo_group_id})
+        return results
+
+
 def create_contributor_metrics(metrics):
     add_metrics(metrics, __name__)
 
