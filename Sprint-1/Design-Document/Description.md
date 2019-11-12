@@ -2,6 +2,11 @@
 
 ## what is necessary for your use cases to lead into a solution
 
+usecase:
+1. https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/use%20case%201.jpg
+2. https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/use%20case%202.jpg
+3. https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/use%20case%203.jpg
+
 repo link:https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/Repo-page.jpg <br>
 repo group link:https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/Repo-group-page.jpg<br>
 info word version link:https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/Info-page.jpg<br>
