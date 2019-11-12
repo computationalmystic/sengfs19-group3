@@ -61,3 +61,8 @@ def test_committer_by_group(metrics):
     assert response.status_code == 200
     assert len(data) >= 1
 
+def test_messages_by_contributor(metrics):
+    response = requests.get('http://localhost:5000/api/unstable/repo-groups/21/messages-by-contributor')
+    data = response.json()
+    assert response.status_code == 200
+    assert len(data) >= 1
