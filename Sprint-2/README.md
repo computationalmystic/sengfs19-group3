@@ -10,3 +10,7 @@
   1. basic UI
   2. Metric funtion cannot test
   
+## Work done
+
+  1. the End point commiters by location (augur/ metrics/ contributor [contributor.py and routes.py])
+  2. begin of the javascript file
