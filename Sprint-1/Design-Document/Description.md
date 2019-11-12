@@ -2,6 +2,10 @@
 
 ## what is necessary for your use cases to lead into a solution
 
+repo link:https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/Repo-page.jpg
+repo group link:https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/Repo-group-page.jpg
+info word version link:https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/Info-page.jpg
+
 ### Data source
   
     - Augur repo data
