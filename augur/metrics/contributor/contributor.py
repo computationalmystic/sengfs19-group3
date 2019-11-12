@@ -559,7 +559,7 @@ def contributors_code_development(self, repo_group_id, repo_id=None, period='all
 
 
 @annotate(tag='messages-by-contributor')
-def messages_new(self, repo_group_id, repo_id=None):
+def messages_by_contributor(self, repo_group_id, repo_id=None):
     """
     Returns the number of messages made by a contributor
 
