@@ -358,3 +358,5 @@ def create_contributor_routes(server):
 
 
     """
+
+    server.addRepoMetric(metrics.number_of_committers_by_location, 'number-of-committers-by-location')

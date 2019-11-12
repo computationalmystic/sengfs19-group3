@@ -581,6 +581,30 @@ def contributors_by_company(self, repo_group_id, repo_id=None):
         return results
 
 
+@annotate(tag = 'number-of-committers-by-location')
+def number_of_committers_by_location(self, repo_group_id, repo_id):
+    """
+        Returns the number of committers by location
+
+    """
+    if repo_id:
+        numOfCommitByLocation = s.sql.text("""
+        
+        SELECT cntrb_location, COUNT(cntrb_location) AS numOfContrib FROM contributors
+        GROUP BY cntrb_location
+        ORDER BY numOfContrib desc;
+        """)
+        results = pd.read_sql(numOfCommitByLocation, self.database, params={"repo_id": repo_id})
+        return results
+    else:
+        numOfCommitByLocation = s.sql.text("""
+        SELECT cntrb_location, COUNT(cntrb_location) AS numOfContrib FROM contributors
+        GROUP BY cntrb_location
+        ORDER BY numOfContrib desc;
+        """)
+        results = pd.read_sql(numOfCommitByLocation, self.database, params={"repo_group_id": repo_group_id})
+        return results
+
 def create_contributor_metrics(metrics):
     add_metrics(metrics, __name__)
 
