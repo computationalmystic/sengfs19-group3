@@ -341,22 +341,57 @@ def create_contributor_routes(server):
 
     server.addRepoMetric(metrics.contributors_code_development, 'contributors-code-development')
 
-    server.addRepoMetric(metrics.contributors_by_company, 'contributors-by-company')
+    server.addRepoMetric(metrics.contributors_by_company,'contributors-by-company')
     """
-    @apiDescription Returns a list of the number of contributors by company
-
+    @api {get} /repo-groups/:repo_group_id/repos/:repo_id/contributors-by-company Contributors By Company (Repo)
+    @apiName contributors-by-company
+    @apiGroup Contributors
+    @apiDescription Returns a list of contributors by each company that contributes
     @apiParam {string} repo_group_id Repository Group ID
-    @apiParam {string} repo_id Repository ID
-
-    @apiSuccessExample {json} Success-Response:
-
-
+    @apiParam {string} repo_id Repository ID.
+    @apiSuccessExample
                 [
                     {
                         "cntrb_company": "Microsoft"
-                        "total_commits": 14
+                        "counter": 14
+                        }
+                }
 
 
     """
 
-    server.addRepoMetric(metrics.number_of_committers_by_location, 'number-of-committers-by-location')
+    server.addRepoGroupMetric(metrics.contributors_by_company,'contributors-by-company')
+
+    server.addRepoMetric(metrics.number_of_committers_by_location,'number-of-committers-by-location')
+    """
+    @api {get} /repo-groups/:repo_group_id/repos/:repo_id/number-of-comitters-by-location Committers By Location (Repo)
+    @apiName contributors-by-company
+    @apiGroup Contributors
+    @apiDescription Returns the number of committers by the location they gave.
+    @apiParam {string} repo_group_id Repository Group ID
+    @apiParam {string} repo_id Repository ID.
+    @apiSuccessExample
+                {
+                    {
+                        "cntrb_location": "Columbia, MO"
+                        "numOfContrib": 4
+                    }
+                }
+    """
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
