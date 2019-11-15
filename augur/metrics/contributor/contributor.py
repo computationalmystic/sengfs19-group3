@@ -600,6 +600,7 @@ def contributors_by_company(self, repo_group_id, repo_id=None):
                     AND repo.repo_id = :repo_id
                 GROUP BY
                     cntrb_company, repo.repo_id, contributors.cntrb_id) L
+                WHERE cntrb_company IS NOT NULL
                 GROUP BY L.cntrb_company
                 ORDER BY counter DESC; 
                 """)
@@ -637,6 +638,7 @@ def contributors_by_company(self, repo_group_id, repo_id=None):
                     AND repo.repo_group_id = :repo_group_id
                 GROUP BY
                     cntrb_company, repo.repo_id, contributors.cntrb_id) L
+                WHERE cntrb_company IS NOT NULL
                 GROUP BY L.cntrb_company
                 ORDER BY counter DESC;
             """)
