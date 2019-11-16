@@ -562,48 +562,122 @@ def contributors_code_development(self, repo_group_id, repo_id=None, period='all
 def contributors_by_company(self, repo_group_id, repo_id=None):
     """
     Returns the number of contributors categorized by each company.
+    :param repo_group_id: The repositories group_id
+	:param repo_id: The repositories ID defaults to None
+	:return: DataFrame of Contributors by company
     """
+    numOfContribsByCompany_SQL = ''
+
+
     if repo_id:
-        numOfContribsByCompany = s.sql.text("""
-                SELECT cntrb_company, COUNT(*) AS counter FROM contributors
-                GROUP BY cntrb_company
-                ORDER BY counter desc;
+        numOfContribsByCompany_SQL = s.sql.text("""
+                SELECT cntrb_company, count(*) AS counter FROM 
+                (
+                SELECT DISTINCT 
+                    cntrb_company, repo.repo_id, contributors.cntrb_id,
+                    COUNT ( * ) AS counter 
+                FROM
+                    contributors,
+                    repo,
+                    issues 
+                WHERE
+                    repo.repo_id = issues.repo_id 
+                AND issues.cntrb_id = contributors.cntrb_id
+                AND repo.repo_id = :repo_id
+                GROUP BY
+                    cntrb_company, repo.repo_id, contributors.cntrb_id
+                UNION
+                SELECT
+                    cntrb_company, repo.repo_id, contributors.cntrb_id, 
+                    COUNT ( * ) AS counter 
+                FROM
+                    contributors,
+                    repo,
+                    commits 
+                WHERE
+                    repo.repo_id = commits.repo_id 
+                    AND ( commits.cmt_author_email = contributors.cntrb_canonical OR commits.cmt_committer_email = contributors.cntrb_canonical ) 
+                    AND repo.repo_id = :repo_id
+                GROUP BY
+                    cntrb_company, repo.repo_id, contributors.cntrb_id) L
+                WHERE cntrb_company IS NOT NULL
+                GROUP BY L.cntrb_company
+                ORDER BY counter DESC; 
                 """)
-        results = pd.read_sql(numOfContribsByCompany, self.database, params={"repo_id": repo_id})
+
+        results = pd.read_sql(numOfContribsByCompany_SQL, self.database, params={'repo_id': repo_id})
         return results
     else:
-        numOfContribsByCompany = s.sql.text("""
-            SELECT cntrb_company, COUNT(*) as counter from contributors
-            GROUP BY cntrb_company
-            ORDER BY counter desc;
+        numOfContribsByCompany_SQL = s.sql.text("""
+            SELECT cntrb_company, count(*) AS counter FROM 
+                (
+                SELECT DISTINCT 
+                    cntrb_company, repo.repo_id, contributors.cntrb_id,
+                    COUNT ( * ) AS counter 
+                FROM
+                    contributors,
+                    repo,
+                    issues 
+                WHERE
+                    repo.repo_id = issues.repo_id 
+                AND issues.cntrb_id = contributors.cntrb_id
+                AND repo.repo_group_id = :repo_group_id
+                GROUP BY
+                    cntrb_company, repo.repo_id, contributors.cntrb_id
+                UNION
+                SELECT
+                    cntrb_company, repo.repo_id, contributors.cntrb_id, 
+                    COUNT ( * ) AS counter 
+                FROM
+                    contributors,
+                    repo,
+                    commits 
+                WHERE
+                    repo.repo_id = commits.repo_id 
+                    AND ( commits.cmt_author_email = contributors.cntrb_canonical OR commits.cmt_committer_email = contributors.cntrb_canonical ) 
+                    AND repo.repo_group_id = :repo_group_id
+                GROUP BY
+                    cntrb_company, repo.repo_id, contributors.cntrb_id) L
+                WHERE cntrb_company IS NOT NULL
+                GROUP BY L.cntrb_company
+                ORDER BY counter DESC;
             """)
-        results = pd.read_sql(numOfContribsByCompany, self.database, params={"repo_group_id": repo_group_id})
-        return results
+        results = pd.read_sql(numOfContribsByCompany_SQL, self.database, params={'repo_group_id': repo_group_id})
+    return results
 
 
-@annotate(tag = 'number-of-committers-by-location')
-def number_of_committers_by_location(self, repo_group_id, repo_id):
+@annotate(tag='number-of-committers-by-location')
+def number_of_committers_by_location(self, repo_group_id, repo_id=None):
     """
         Returns the number of committers by location
-
+		
+		:param repo_group_id: The repositories group_id
+		:param repo_id: The repositories ID defaults to None
+		:return: DataFrame of the Number of committers by location
     """
+
+    num_of_committers_SQL = ''
+
     if repo_id:
-        numOfCommitByLocation = s.sql.text("""
+        num_of_committers_SQL = s.sql.text("""
         
-        SELECT cntrb_location, COUNT(cntrb_location) AS numOfContrib FROM contributors
-        GROUP BY cntrb_location
-        ORDER BY numOfContrib desc;
-        """)
-        results = pd.read_sql(numOfCommitByLocation, self.database, params={"repo_id": repo_id})
+        	SELECT repo_id, cntrb_location, COUNT(cntrb_location) AS numOfContrib FROM contributors
+        	GROUP BY cntrb_location
+        	ORDER BY numOfContrib desc;
+        	""")
+        
+        results = pd.read_sql(num_of_committers_SQL, self.database, params={"repo_id": repo_id})
+        
         return results
     else:
-        numOfCommitByLocation = s.sql.text("""
-        SELECT cntrb_location, COUNT(cntrb_location) AS numOfContrib FROM contributors
-        GROUP BY cntrb_location
-        ORDER BY numOfContrib desc;
-        """)
-        results = pd.read_sql(numOfCommitByLocation, self.database, params={"repo_group_id": repo_group_id})
-        return results
+        num_of_committers_SQL = s.sql.text("""
+        	SELECT repo_group_id, cntrb_location, COUNT(cntrb_location) AS numOfContrib FROM contributors
+        	GROUP BY cntrb_location
+        	ORDER BY numOfContrib desc;
+        	""")
+        results = pd.read_sql(num_of_committers_SQL, self.database, params={"repo_group_id": repo_group_id})
+    
+    return results
 
 def create_contributor_metrics(metrics):
     add_metrics(metrics, __name__)
