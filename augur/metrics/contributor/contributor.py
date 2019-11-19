@@ -679,6 +679,42 @@ def number_of_committers_by_location(self, repo_group_id, repo_id=None):
     
     return results
 
+
+@annotate(tag='messages-by-contributor')
+def messages_by_contributor(self, repo_group_id, repo_id=None):
+    """
+    Returns the number of messages made by a contributor
+
+    :param repo_group_id: The repository's repo_group_id
+    :param repo_id: The repository's repo_id, defaults to None
+    """
+
+    messages_new_SQL = ''
+
+    if repo_id:
+        messages_new_SQL = s.sql.text("""
+            SELECT
+                cntrb_id, COUNT(*) AS messages FROM message
+                GROUP BY cntrb_id
+                ORDER BY messages desc;
+        """)
+
+        results = pd.read_sql(messages_new_SQL, self.database, params={'repo_id': repo_id})
+
+        return results
+
+    else:
+        messages_new_SQL = s.sql.text("""
+            SELECT
+                cntrb_id, COUNT(*) as messages FROM message
+                GROUP BY cntrb_id
+                ORDER BY messages desc;
+        """)
+
+        results = pd.read_sql(messages_new_SQL, self.database, params={'repo_group_id': repo_group_id})
+
+    return results
+
 def create_contributor_metrics(metrics):
     add_metrics(metrics, __name__)
 
