@@ -581,17 +581,17 @@ def messages_by_contributor(self, repo_group_id, repo_id=None):
 
         return results
 
-        else:
-            messages_new_SQL = s.sql.text("""
-                SELECT
-                    cntrb_id, COUNT(*) as messages FROM message
-                    GROUP BY cntrb_id
-                    ORDER BY messages desc;
-            """)
+    else:
+        messages_new_SQL = s.sql.text("""
+            SELECT
+                cntrb_id, COUNT(*) as messages FROM message
+                GROUP BY cntrb_id
+                ORDER BY messages desc;
+        """)
 
-            results = pd.read_sql(messages_new_SQL, self.database, params={'repo_group_id': repo_group_id})
+        results = pd.read_sql(messages_new_SQL, self.database, params={'repo_group_id': repo_group_id})
 
-            return results
+        return results
 
 def create_contributor_metrics(metrics):
     add_metrics(metrics, __name__)
