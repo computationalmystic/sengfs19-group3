@@ -52,5 +52,8 @@ def test_committer(metrics):
     assert metrics.committers(20,21000,period='year').iloc[0]['count'] > 100
 
 def test_messages(metrics):
+    # repo id
     assert metrics.messages_by_contributor(20, repo_id=21000)
+
+    #repo group
     assert metrics.messages_by_contributor(20)
