@@ -557,6 +557,7 @@ def contributors_code_development(self, repo_group_id, repo_id=None, period='all
                                                                 'begin_date': begin_date, 'end_date': end_date})
     return results
 
+
 @annotate(tag='contributors-by-company')
 def contributors_by_company(self, repo_group_id, repo_id=None):
     """
