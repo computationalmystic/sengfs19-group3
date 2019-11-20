@@ -25,18 +25,18 @@ def test_contributors(metrics):
 
 
 def test_contributors_new(metrics):
-    assert metrics.contributors_new(20, repo_id=21000, period='year').isin(
+    assert metrics.contributors_new(20, repo_id=25431, period='year').isin(
         [pd.Timestamp('2019-01-01 00:00:00', tz='UTC')]).any().any()
 
     # repo_group_id
-    assert metrics.contributors_new(24, period='year').isin(
+    assert metrics.contributors_new(20, period='year').isin(
         [pd.Timestamp('2019-01-01 00:00:00', tz='UTC')]).any().any()
 
     # begin_date and end_date
-    assert metrics.contributors_new(24, period='year', begin_date='2019-1-1 00:00:00',
+    assert metrics.contributors_new(20, period='year', begin_date='2019-1-1 00:00:00',
                                      end_date='2019-12-31 23:59:59').isin([pd.Timestamp('2019-01-01 00:00:00', tz='UTC')]).any().any()
 
-    assert metrics.contributors_new(20, repo_id=21000, period='year', begin_date='2019-1-1 00:00:00',
+    assert metrics.contributors_new(20, repo_id=25432, period='year', begin_date='2019-1-1 00:00:00',
                                      end_date='2019-12-31 23:59:59').isin([pd.Timestamp('2019-01-01 00:00:00', tz='UTC')]).any().any()
 
 def test_top_committers(metrics):
@@ -51,9 +51,23 @@ def test_committer(metrics):
     assert metrics.committers(21,period='year').iloc[0]['count'] > 100
     assert metrics.committers(20,21000,period='year').iloc[0]['count'] > 100
 
+
+
+
+def test_contributors_by_companys(metrics):
+    
+    #repo_group_id
+    assert metrics.contributors_by_company(20).iloc[0]['counter'] > 0
+    
+    #repo_id
+    assert metrics.contributors_by_company(20, repo_id=25432).iloc[0]['counter'] > 0
+
 def test_messages(metrics):
     # repo id
     assert metrics.messages_by_contributor(20, repo_id=21000).iloc[0]['messages'] > 0
 
     #repo group
     assert metrics.messages_by_contributor(20).iloc[0]['messages'] > 0
+
+    assert metrics.messages_by_contributor(20)
+
