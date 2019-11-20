@@ -646,40 +646,6 @@ def contributors_by_company(self, repo_group_id, repo_id=None):
     return results
 
 
-@annotate(tag='number-of-committers-by-location')
-def number_of_committers_by_location(self, repo_group_id, repo_id=None):
-    """
-        Returns the number of committers by location
-		
-		:param repo_group_id: The repositories group_id
-		:param repo_id: The repositories ID defaults to None
-		:return: DataFrame of the Number of committers by location
-    """
-
-    num_of_committers_SQL = ''
-
-    if repo_id:
-        num_of_committers_SQL = s.sql.text("""
-        
-        	SELECT repo_id, cntrb_location, COUNT(cntrb_location) AS numOfContrib FROM contributors
-        	GROUP BY cntrb_location
-        	ORDER BY numOfContrib desc;
-        	""")
-        
-        results = pd.read_sql(num_of_committers_SQL, self.database, params={"repo_id": repo_id})
-        
-        return results
-    else:
-        num_of_committers_SQL = s.sql.text("""
-        	SELECT repo_group_id, cntrb_location, COUNT(cntrb_location) AS numOfContrib FROM contributors
-        	GROUP BY cntrb_location
-        	ORDER BY numOfContrib desc;
-        	""")
-        results = pd.read_sql(num_of_committers_SQL, self.database, params={"repo_group_id": repo_group_id})
-    
-    return results
-
-
 @annotate(tag='messages-by-contributor')
 def messages_by_contributor(self, repo_group_id, repo_id=None):
     """
