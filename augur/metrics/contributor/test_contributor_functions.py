@@ -53,7 +53,7 @@ def test_committer(metrics):
 
 def test_messages(metrics):
     # repo id
-    assert metrics.messages_by_contributor(20, repo_id=21000)
+    assert metrics.messages_by_contributor(20, repo_id=21000).iloc[0]['messages'] > 0
 
     #repo group
-    assert metrics.messages_by_contributor(20)
+    assert metrics.messages_by_contributor(20).iloc[0]['messages'] > 0
