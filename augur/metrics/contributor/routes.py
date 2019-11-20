@@ -360,23 +360,6 @@ def create_contributor_routes(server):
 
     server.addRepoGroupMetric(metrics.contributors_by_company,'contributors-by-company')
 
-    server.addRepoMetric(metrics.number_of_committers_by_location,'number-of-committers-by-location')
-    """
-    @api {get} /repo-groups/:repo_group_id/repos/:repo_id/number-of-comitters-by-location Committers By Location (Repo)
-    @apiName contributors-by-company
-    @apiGroup Contributors
-    @apiDescription Returns the number of committers by the location they gave.
-    @apiParam {string} repo_group_id Repository Group ID
-    @apiParam {string} repo_id Repository ID.
-    @apiSuccessExample
-                {
-                    {
-                        "cntrb_location": "Columbia, MO"
-                        "numOfContrib": 4
-                    }
-                }
-    """
-
     server.addRepoMetric(metrics.messages_by_contributor, 'messages-by-contributor')
     """
     @api {get} /repo-groups//:repo_group_id/repos/:repo_id/messages-by-contributor Messages By Contributor (Repo)
