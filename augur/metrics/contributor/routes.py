@@ -359,11 +359,10 @@ def create_contributor_routes(server):
                         "counter": 14
                         }
                 }
-
-
     """
 
     server.addRepoGroupMetric(metrics.contributors_by_company,'contributors-by-company')
+<<<<<<< HEAD
 """
     @api {get} /repo-groups/:repo_group_id/repos/:repo_id/contributors-by-company Contributors By Company (Repo)
     @apiName contributors-by-company
@@ -380,20 +379,25 @@ def create_contributor_routes(server):
 
 
 """
+=======
 
+    server.addRepoMetric(metrics.messages_by_contributor, 'messages-by-contributor')
+    """
+    @api {get} /repo-groups//:repo_group_id/repos/:repo_id/messages-by-contributor Messages By Contributor (Repo)
+    @apiName messages-by-contributor
+    @apiGroup Contributors
+    @apiDescription Returns the number of messages made by each contributor
+    @apiParam {string} repo_group_id Repository Group ID
+    @apiParam {string} repo_id Repository ID
+    @apiSuccessExample
+                [
+                    {
+                        "cntrb_id": 
+                        "messages": 
+                    }
+                ]
+    
+    """
+>>>>>>> aaf74f3279aa40047864ec896267fd48b4852347
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    server.addRepoGroupMetric(metrics.messages_by_contributor, 'messages-by-contributor')

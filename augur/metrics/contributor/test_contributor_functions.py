@@ -51,6 +51,7 @@ def test_committer(metrics):
     assert metrics.committers(21,period='year').iloc[0]['count'] > 100
     assert metrics.committers(20,21000,period='year').iloc[0]['count'] > 100
 
+<<<<<<< HEAD
 
 
 def test_contributors_by_companys(metrics):
@@ -60,3 +61,11 @@ def test_contributors_by_companys(metrics):
     
     #repo_id
     assert metrics.contributors_by_company(20, repo_id=25432).iloc[0]['counter'] > 0
+=======
+def test_messages(metrics):
+    # repo id
+    assert metrics.messages_by_contributor(20, repo_id=21000)
+
+    #repo group
+    assert metrics.messages_by_contributor(20)
+>>>>>>> aaf74f3279aa40047864ec896267fd48b4852347
