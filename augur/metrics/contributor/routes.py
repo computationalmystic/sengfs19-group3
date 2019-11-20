@@ -341,6 +341,9 @@ def create_contributor_routes(server):
 
     server.addRepoMetric(metrics.contributors_code_development, 'contributors-code-development')
 
+    
+
+# Group 3 Graeson: 
     server.addRepoMetric(metrics.contributors_by_company,'contributors-by-company')
     """
     @api {get} /repo-groups/:repo_group_id/repos/:repo_id/contributors-by-company Contributors By Company (Repo)
@@ -359,6 +362,24 @@ def create_contributor_routes(server):
     """
 
     server.addRepoGroupMetric(metrics.contributors_by_company,'contributors-by-company')
+<<<<<<< HEAD
+"""
+    @api {get} /repo-groups/:repo_group_id/repos/:repo_id/contributors-by-company Contributors By Company (Repo)
+    @apiName contributors-by-company
+    @apiGroup Contributors
+    @apiDescription Returns a list of contributors by each company that contributes
+    @apiParam {string} repo_group_id Repository Group ID
+    @apiSuccessExample
+                [
+                    {
+                        "cntrb_company": "Microsoft"
+                        "counter": 14
+                        }
+                }
+
+
+"""
+=======
 
     server.addRepoMetric(metrics.messages_by_contributor, 'messages-by-contributor')
     """
@@ -377,5 +398,6 @@ def create_contributor_routes(server):
                 ]
     
     """
+>>>>>>> aaf74f3279aa40047864ec896267fd48b4852347
 
     server.addRepoGroupMetric(metrics.messages_by_contributor, 'messages-by-contributor')

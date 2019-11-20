@@ -645,6 +645,8 @@ def contributors_by_company(self, repo_group_id, repo_id=None):
         results = pd.read_sql(numOfContribsByCompany_SQL, self.database, params={'repo_group_id': repo_group_id})
     return results
 
+<<<<<<< HEAD
+=======
 
 @annotate(tag='messages-by-contributor')
 def messages_by_contributor(self, repo_group_id, repo_id=None):
@@ -681,6 +683,7 @@ def messages_by_contributor(self, repo_group_id, repo_id=None):
 
     return results
 
+>>>>>>> aaf74f3279aa40047864ec896267fd48b4852347
 def create_contributor_metrics(metrics):
     add_metrics(metrics, __name__)
 
