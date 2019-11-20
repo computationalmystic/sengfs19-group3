@@ -341,6 +341,9 @@ def create_contributor_routes(server):
 
     server.addRepoMetric(metrics.contributors_code_development, 'contributors-code-development')
 
+    
+
+# Group 3 Graeson: 
     server.addRepoMetric(metrics.contributors_by_company,'contributors-by-company')
     """
     @api {get} /repo-groups/:repo_group_id/repos/:repo_id/contributors-by-company Contributors By Company (Repo)
@@ -361,23 +364,22 @@ def create_contributor_routes(server):
     """
 
     server.addRepoGroupMetric(metrics.contributors_by_company,'contributors-by-company')
-
-    server.addRepoMetric(metrics.number_of_committers_by_location,'number-of-committers-by-location')
-    """
-    @api {get} /repo-groups/:repo_group_id/repos/:repo_id/number-of-comitters-by-location Committers By Location (Repo)
+"""
+    @api {get} /repo-groups/:repo_group_id/repos/:repo_id/contributors-by-company Contributors By Company (Repo)
     @apiName contributors-by-company
     @apiGroup Contributors
-    @apiDescription Returns the number of committers by the location they gave.
+    @apiDescription Returns a list of contributors by each company that contributes
     @apiParam {string} repo_group_id Repository Group ID
-    @apiParam {string} repo_id Repository ID.
     @apiSuccessExample
-                {
+                [
                     {
-                        "cntrb_location": "Columbia, MO"
-                        "numOfContrib": 4
-                    }
+                        "cntrb_company": "Microsoft"
+                        "counter": 14
+                        }
                 }
-    """
+
+
+"""
 
 
 
