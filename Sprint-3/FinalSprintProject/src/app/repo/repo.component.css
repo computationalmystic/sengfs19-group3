@@ -1,0 +1,31 @@
+.mat-table {
+    width: 95%;
+    margin-left:auto; 
+    margin-right:auto;
+  }
+  
+.search-div{
+      display: flex;
+      flex-direction: column;
+  }
+.search-div > * {
+    font-size: 14px;
+    width: 90%;
+    color: gray;
+    margin-left: auto;
+    margin-right: auto;
+  }
+::placeholder{
+  color:gray;
+}
+:-ms-input-placeholder{
+    color:gray;
+}
+::-ms-input-placeholder{
+    color:gray
+}
+    
+th,td{
+    margin-left: auto;
+    margin-right: auto;
+}
