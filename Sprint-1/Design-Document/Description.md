@@ -14,41 +14,41 @@ info word version link:https://github.com/computationalmystic/sengfs19-group3/bl
 
 ### Data source
   
-    - Augur repo data
+    - Augur contributors data
     - Augur repo group data
-    - Augur pull request data
+    - Augur issues data 
     - Augur contributors data
     - Augur commits data
 
 ### Functions
 
-    - get info from Augur EndPoint
-    - resorting data
-    - search data which user want 
-    - show two versions which are graph and word 
+    - Create contributors-by-company and messages-by-contributor API endpoints
+    - Be able to display that data on a webpage using Angular
+    - search data for specific repo groups and repos within those groups 
+    - show two versions which are graph display and display the data in a table 
 
 ## how the different software components communicate 
     list of the software compoent
-    - Views
-    - Models
-    - Controllers
-    - Data Access objects
-    - services
-    - Api
-    - Plugins
+    - Augur
+    - Postgresql database
+    - Angular Webpage
+    - All of Augur's plugins
+    - Data Access tables created in postgresql database from SQL queries implemented with metric functions
+    - Python3.0+ 
+    - Python virtual environment
     
-    - user can see the list of the request they can do in application by views.
-    - Data Access objects set up the data structure
+    - user can see the list of the request they can do in application by different pages on website.
+    - Data Access objects set up the data structure created from metric endpoints
     - user can choose the request from the list.
     - Models handle request and data processing.
-    - Controller receive request to call function (Plugins).
+    - Controller receive request to call metric function from metric route (Plugins).
     - services save the data
-    - application can get data (data structure from data Access object) from serveiceby calling Api 
+    - application can get data (data structure from data Access object) from serveice by calling Api 
     
     
 
 ## Document the reasons for your decision where you have choices in desgin
   
-    - the info in Augur data base is unreadable
-    - the word and graph way will show different information
-    - the same key word in database
+    - the information displayed in Augur's website is a little buggy.
+    - the word and graph way will show different information from the endpoints created
+    - Create a useful API endpoint that could be implemented in the form of a table or graph.
