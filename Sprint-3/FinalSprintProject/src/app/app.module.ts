@@ -15,6 +15,8 @@ import { DataTablesModule } from 'angular-datatables';
 import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, 
   MatSortModule, MatTableModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { ContributorsComponent } from './contributors/contributors.component';
+import { MessagesComponent } from './messages/messages.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { FormsModule } from '@angular/forms';
     RepoComponent,
     RepogroupComponent,
     InfoComponent,
-    NavBarComponent
+    NavBarComponent,
+    ContributorsComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,

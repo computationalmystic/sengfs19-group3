@@ -4,28 +4,28 @@ import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-info',
-  templateUrl: './info.component.html',
-  styleUrls: ['./info.component.css']
+  selector: 'app-contributors',
+  templateUrl: './contributors.component.html',
+  styleUrls: ['./contributors.component.css']
 })
-export class InfoComponent implements OnInit {
-
+export class ContributorsComponent implements OnInit {
   dataSource = new MatTableDataSource();
-  displayedColumns = ['repo_id', 'repo_name', 'email', 'commits'];
+  displayedColumns = ['cntrb_company', 'counter'];
   
   @ViewChild(MatPaginator,{static: false}) paginator: MatPaginator;
   @ViewChild(MatSort,{static: false}) sort: MatSort;
+  message = new MatTableDataSource();
   erro:any;
 
   urlGroupId: string = this.route.snapshot.paramMap.get('groupId');
 
-  urlRepoId: string = this.route.snapshot.paramMap.get('repoId');
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) { 
 
   }
+
   ngOnInit() {
-    this.apiService.getCommits(this.urlGroupId,this.urlRepoId).subscribe(data=>{
+    this.apiService.getContributors(this.urlGroupId).subscribe(data=>{
       this.dataSource = new MatTableDataSource(data);
       console.log(this.dataSource);
       this.dataSource.paginator = this.paginator;
@@ -35,15 +35,10 @@ export class InfoComponent implements OnInit {
       this.erro = error;
       console.error("Error:",error);
   });
-  }
-
-  onSearchClear(){
-    this.dataSource.filter='';
-  }
-
   
-  applyFilter(filterValue: string){
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
 
 }
+
+
