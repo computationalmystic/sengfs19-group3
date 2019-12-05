@@ -8,36 +8,19 @@
 .mat-header-cell:nth-child(1)
 {
   justify-content:center;
-  flex: 0 0 10%;
 }
 .mat-cell:nth-child(2),
 .mat-header-cell:nth-child(2)
 {
   justify-content:center;
-flex: 0 0 30%;
+
 }
 .mat-header-cell {
 display:flex;
 justify-content:center;
 background-color: #808080;
 }
-.mat-cell:nth-child(3),
-.mat-header-cell:nth-child(3)
-{
-flex: 0 0 20%;
-}
-.mat-cell:nth-child(4),
-.mat-header-cell:nth-child(4)
-{
-flex: 0 0 20%;
-justify-content:center;
-}
-.mat-cell:nth-child(5),
-.mat-header-cell:nth-child(5)
-{
-  flex: 0 0 20%;
-justify-content:center;
-}
+
 
 
 .search-div{
@@ -63,4 +46,16 @@ justify-content:center;
 th,td{
   margin-left: auto;
   margin-right: auto;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left:  5%;
 }

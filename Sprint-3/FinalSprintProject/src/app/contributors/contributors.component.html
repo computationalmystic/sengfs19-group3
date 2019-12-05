@@ -15,10 +15,15 @@
   </style>
 </head>
 <body>
-    <h3 style="text-align:center">Table of commits</h3>
+    <div >
+    <h3  style="text-align:center">Table of Contributor by company</h3>
     <ng-container *ngIf="!dataSource">
-        <h4>Loading commits information...</h4>
+        <h4>Loading contributors information...</h4>
     </ng-container>
+</div>
+ 
+    <a routerLink="/messages/{{this.urlGroupId}}"><button class="Message" style="color:gray;margin-left: 2.5%; "> Message Table</button></a>
+
 <div class = "search-div">
         <mat-form-field class="center" floatLabel="never">
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" >
@@ -29,26 +34,19 @@
     
         <div class="center">
             <mat-table [dataSource]="dataSource"  matSort>
-              <ng-container matColumnDef="repo_id">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-                <mat-cell *matCellDef="let commit"> {{commit.repo_name}} </mat-cell>
+              <ng-container matColumnDef="cntrb_company">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Company </mat-header-cell>
+                <mat-cell *matCellDef="let contributor"> {{contributor.cntrb_company}} </mat-cell>
               </ng-container>
           
-              <ng-container matColumnDef="repo_name">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                <mat-cell *matCellDef="let commit"> {{commit.repo_name}} </mat-cell>
-              </ng-container>
-          
-              <ng-container matColumnDef="email">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-                <mat-cell *matCellDef="let commit" > {{commit.email}} </mat-cell>
-              </ng-container>
-          
-              <ng-container matColumnDef="commits">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Commits </mat-header-cell>
-                <mat-cell *matCellDef="let commit"> {{commit.commits}} </mat-cell>
-              </ng-container>
-          
+
+                        
+              <ng-container matColumnDef="counter">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Counter </mat-header-cell>
+                    <mat-cell *matCellDef="let contributor"> {{contributor.counter}} </mat-cell>
+                  </ng-container>
+
+            
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
               <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
            
