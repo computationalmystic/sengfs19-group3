@@ -27,7 +27,7 @@ info word version link:https://github.com/computationalmystic/sengfs19-group3/bl
     - search data for specific repo groups and repos within those groups 
     - show two versions which are graph display and display the data in a table 
 
-## how the different software components communicate 
+### how the different software components communicate 
     List of the software component
     - Augur
     - Postgresql database
@@ -47,8 +47,25 @@ info word version link:https://github.com/computationalmystic/sengfs19-group3/bl
     
     
 
-## Document the reasons for your decision where you have choices in desgin
+### Document the reasons for your decision where you have choices in desgin
   
     - The information displayed in Augur's website is a little buggy.
-    - The word and graph way will show different information from the endpoints created
+    - The website will show different information from the endpoints created
     - Create a useful API endpoint that could be implemented in the form of a table or graph.
+    
+### Links to Endpoints and Website
+[Link for Contributors by Company API Endpoint](http://129.114.104.142:5000/api/unstable/repo-groups/20/contributors-by-company)
+[Link for Messages by Contributor API Endpoint](http://129.114.104.142:5000/api/unstable/repo-groups/20/messages-by-contributor)
+[Link for Website Displaying Messages by Contributor API Endpoint](http://129.114.104.142:4250/messages/20)
+[Link for Website Displaying Contributors by Company API Endpoint](http://129.114.104.142:4250/contributors/20)
+[Link for Website Displaying the Number of Committers for each Repo](http://129.114.104.142:4250/repo)
+
+
+
+
+
+
+
+
+
+
