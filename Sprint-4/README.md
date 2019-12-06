@@ -256,6 +256,13 @@ Info page table test link:http://129.114.104.142:4250/info/24/21623
 
 * [Link to angular changes part 2](https://github.com/computationalmystic/sengfs19-group3/commit/7bc8b896d1fd4ef52f6702b0a35f4c4dc5184a90)
 
+12. Fixed the repo and repo_group metric function for messages-by-contributor test function in test_contributors-functions.py
+
+>
+
+        assert metrics.messages_by_contributor(20, repo_id=21000).iloc[0]['messages'] > 0
+        assert metrics.messages_by_contributor(20).iloc[0]['messages'] > 0
+
  
  
  
