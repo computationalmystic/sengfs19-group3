@@ -54,11 +54,11 @@ info word version link:https://github.com/computationalmystic/sengfs19-group3/bl
     - Create a useful API endpoint that could be implemented in the form of a table or graph.
     
 ### Links to Endpoints and Website
-[Link for Contributors by Company API Endpoint](http://129.114.104.142:5000/api/unstable/repo-groups/20/contributors-by-company)
-[Link for Messages by Contributor API Endpoint](http://129.114.104.142:5000/api/unstable/repo-groups/20/messages-by-contributor)
-[Link for Website Displaying Messages by Contributor API Endpoint](http://129.114.104.142:4250/messages/20)
-[Link for Website Displaying Contributors by Company API Endpoint](http://129.114.104.142:4250/contributors/20)
-[Link for Website Displaying the Number of Committers for each Repo](http://129.114.104.142:4250/repo)
+* [Link for Contributors by Company API Endpoint](http://129.114.104.142:5000/api/unstable/repo-groups/20/contributors-by-company)
+* [Link for Messages by Contributor API Endpoint](http://129.114.104.142:5000/api/unstable/repo-groups/20/messages-by-contributor)
+* [Link for Website Displaying Messages by Contributor API Endpoint](http://129.114.104.142:4250/messages/20)
+* [Link for Website Displaying Contributors by Company API Endpoint](http://129.114.104.142:4250/contributors/20)
+* [Link for Website Displaying the Number of Committers for each Repo](http://129.114.104.142:4250/repo)
 
 
 
