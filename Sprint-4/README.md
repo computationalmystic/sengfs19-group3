@@ -5,11 +5,277 @@
 https://github.com/computationalmystic/sengfs19-group3/tree/master/Sprint-3
 
 
-# funciton
-user can apply filter, pageing(10, 25, 50 100), and sorting with each columns.
+### function
+* User can apply filter, pageing(10, 25, 50 100), and sorting with each columns.
 Repo page! User can check the table of the commit for each repos!
 Repo group page! User can check the table of the message and table of contributor for each repo group!
 Table of message and table of contributor and switch using button in the top-left!
-message table test link:http://129.114.104.142:4250/messages/20
-contributor table test link:http://129.114.104.142:4250/contributors/20
-info page table test link:http://129.114.104.142:4250/info/24/21623
+Message table test link:http://129.114.104.142:4250/messages/20
+Contributor table test link:http://129.114.104.142:4250/contributors/20
+Info page table test link:http://129.114.104.142:4250/info/24/21623
+
+
+
+### Deployment Instructions
+* Deploy augur using the instructions provided by the augur read the docs website.
+* To deploy our project, the only other dependency we had to install was the ng-cli tool through npm package manager to deploy our website. This is assuming you have all the dependencies required for augur installed already <blockquote>npm install -g ng-cli</blockquote> and then go to the directory of our FinalSprintProject directory with our angular-based website. Then, we run the command <blockquote>ng serve --host=0.0.0.0 --port=4250</blockquote> this will deploy the website to be able to be reached from any host on the internet through port 4250.
+
+
+### Modified Code 
+
+1. We added a metric function for messages-by-contributor to contributors.py
+
+> 
+
+    @annotate(tag='messages-by-contributor')
+    def messages_new(self, repo_group_id, repo_id=None):
+        """
+        Returns the number of messages made by a contributor
+        :param repo_group_id: The repository's repo_group_id
+        :param repo_id: The repository's repo_id, defaults to None
+        """
+
+        messages_new_SQL = ''
+
+        if repo_id:
+            messages_new_SQL = s.sql.text("""
+                SELECT
+                    cntrb_id, COUNT(*) AS messages FROM message
+                    GROUP BY cntrb_id
+                    ORDER BY messages desc;
+            """)
+
+            results = pd.read_sql(messages_new_SQL, self.database, params={'repo_id': repo_id})
+
+            return results
+
+            else:
+                messages_new_SQL = s.sql.text("""
+                    SELECT
+                        cntrb_id, COUNT(*) as messages FROM message
+                        GROUP BY cntrb_id
+                        ORDER BY messages desc;
+                """)
+
+                results = pd.read_sql(messages_new_SQL, self.database, params={'repo_group_id': repo_group_id})
+
+                return results 
+
+2. Then we added the metric route for messages-by-contributor to routes.py to be able to reach the API endpoint we created
+
+>   
+    
+    server.addRepoGroupMetric(metrics.top_messages, 'messages-by-contributor')
+
+    server.addRepoMetric(metrics.top_messages, 'messages-by-contributor')
+    
+3. Then we created test functions for metric function messages-by-contributor in test_contributors_functions.py
+ 
+ >
+ 
+    def test_messages(metrics):
+      assert metrics.messages_by_contributor(20, repo_id=21000)
+      assert metrics.messages_by_contributor(20)
+ 
+ 4. Then we created test functions for the metric route for messages-by-contributor in test_contributors_routes.py
+ 
+ >
+ 
+    def test_messages_by_contributor(metrics):
+      response = requests.get('http://localhost:5000/api/unstable/repo-groups/21/messages-by-contributor')
+      data = response.json()
+      assert response.status_code == 200
+      assert len(data) >= 1
+    
+5. Then we created another metric function for contributors-by-company in contributors.py
+
+>
+      
+      @annotate(tag='contributors-by-company')
+      def contributors_by_company(self, repo_group_id, repo_id=None):
+          """
+          Returns the number of contributors categorized by each company.
+          """
+          if repo_id:
+              numOfContribsByCompany = s.sql.text("""
+                      SELECT cntrb_company, COUNT(*) AS counter FROM contributors
+                      GROUP BY cntrb_company
+                      ORDER BY counter desc;
+                      """)
+              results = pd.read_sql(numOfContribsByCompany, self.database, params={"repo_id": repo_id})
+              return results
+          else:
+              numOfContribsByCompany = s.sql.text("""
+                  SELECT cntrb_company, COUNT(*) as counter from contributors
+                  GROUP BY cntrb_company
+                  ORDER BY counter desc;
+                  """)
+              results = pd.read_sql(numOfContribsByCompany, self.database, params={"repo_group_id": repo_group_id})
+              return results
+
+6. Then we created a metric route for that metric function in routes.py
+
+>
+
+    server.addRepoMetric(metrics.contributors_by_company, 'contributors-by-company')
+    """
+    @apiDescription Returns a list of the number of contributors by company
+    @apiParam {string} repo_group_id Repository Group ID
+    @apiParam {string} repo_id Repository ID
+    @apiSuccessExample {json} Success-Response:
+                [
+                    {
+                        "cntrb_company": "Microsoft"
+                        "total_commits": 14
+    """
+    
+7. Then with the help of Sean, we fixed my SQL query for the contributors-by-company metric function in contributors.py
+
+>
+
+    numOfContribsByCompany_SQL = s.sql.text("""
+                SELECT cntrb_company, count(*) AS counter FROM 
+                (
+                SELECT DISTINCT 
+                    cntrb_company, repo.repo_id, contributors.cntrb_id,
+                    COUNT ( * ) AS counter 
+                FROM
+                    contributors,
+                    repo,
+                    issues 
+                WHERE
+                    repo.repo_id = issues.repo_id 
+                AND issues.cntrb_id = contributors.cntrb_id
+                AND repo.repo_id = :repo_id
+                GROUP BY
+                    cntrb_company, repo.repo_id, contributors.cntrb_id
+                UNION
+                SELECT
+                    cntrb_company, repo.repo_id, contributors.cntrb_id, 
+                    COUNT ( * ) AS counter 
+                FROM
+                    contributors,
+                    repo,
+                    commits 
+                WHERE
+                    repo.repo_id = commits.repo_id 
+                    AND ( commits.cmt_author_email = contributors.cntrb_canonical OR commits.cmt_committer_email = contributors.cntrb_canonical ) 
+                    AND repo.repo_id = :repo_id
+                GROUP BY
+                    cntrb_company, repo.repo_id, contributors.cntrb_id) L
+                GROUP BY L.cntrb_company
+                ORDER BY counter DESC; 
+                """)
+                
+                #fixed a problem with double quotes here
+                results = pd.read_sql(numOfContribsByCompany_SQL, self.database, params={'repo_id': repo_id})
+                
+                # modified the else statement as well
+       numOfContribsByCompany_SQL = s.sql.text("""
+            SELECT cntrb_company, count(*) AS counter FROM 
+                (
+                SELECT DISTINCT 
+                    cntrb_company, repo.repo_id, contributors.cntrb_id,
+                    COUNT ( * ) AS counter 
+                FROM
+                    contributors,
+                    repo,
+                    issues 
+                WHERE
+                    repo.repo_id = issues.repo_id 
+                AND issues.cntrb_id = contributors.cntrb_id
+                AND repo.repo_group_id = :repo_group_id
+                GROUP BY
+                    cntrb_company, repo.repo_id, contributors.cntrb_id
+                UNION
+                SELECT
+                    cntrb_company, repo.repo_id, contributors.cntrb_id, 
+                    COUNT ( * ) AS counter 
+                FROM
+                    contributors,
+                    repo,
+                    commits 
+                WHERE
+                    repo.repo_id = commits.repo_id 
+                    AND ( commits.cmt_author_email = contributors.cntrb_canonical OR commits.cmt_committer_email = contributors.cntrb_canonical ) 
+                    AND repo.repo_group_id = :repo_group_id
+                GROUP BY
+                    cntrb_company, repo.repo_id, contributors.cntrb_id) L
+                GROUP BY L.cntrb_company
+                ORDER BY counter DESC;
+            """)   
+            
+ 8. Fixed the metric routes for the contributors-by-company metric function in routes.py
+ 
+ >    
+    
+      server.addRepoMetric(metrics.contributors_by_company,'contributors-by-company')
+      server.addRepoGroupMetric(metrics.contributors_by_company,'contributors-by-company')
+ 
+ 9. Fixed two lines in the SQL query for getting rid of null values
+ 
+ >  
+ 
+      #fixed in the repo_id if statement
+      WHERE cntrb_company IS NOT NULL
+      fixed in the else statement for repo_group_id
+      WHERE cntrb_company IS NOT NULL
+ 
+ 10. Created test functions for the metric function contributors-by-company in test_contributors_functions.py
+ 
+ > 
+ 
+      def test_contributors_by_companys(metrics):
+
+        #repo_group_id
+        assert metrics.contributors_by_company(20).iloc[0]['counter'] > 0
+
+        #repo_id
+        assert metrics.contributors_by_company(20, repo_id=25432).iloc[0]['counter'] > 0
+    
+ 11. Created test functions for the metric route for metric function contributors-by-company in test_contributors_routes.py
+ 
+ >
+ 
+     def test_contributors_by_company_group(metrics):
+      response = requests.get('http://localhost:5000/api/unstable/repo-groups/20/contributors-by-company')
+      data = response.json()
+      assert response.status_code == 200
+      assert len(data) >= 1
+
+
+    def test_contributors_by_company_repo(metrics):
+        response = requests.get('http://localhost:5000/api/unstable/repo-groups/20/repos/25432/contributors-by-company')
+        data = response.json()
+        assert response.status_code == 200
+        assert len(data) >= 1
+        
+11. Then we created the web GUI for displaying our endpoints using Angular framework
+
+* (Link to angular changes part 1)[https://github.com/computationalmystic/sengfs19-group3/commit/f81da6cc12133f5d3a4a6742d97646d09f758ca9]
+
+* (Link to angular changes part 2)[https://github.com/computationalmystic/sengfs19-group3/commit/7bc8b896d1fd4ef52f6702b0a35f4c4dc5184a90]
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
