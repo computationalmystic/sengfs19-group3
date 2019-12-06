@@ -5,20 +5,22 @@
 https://github.com/computationalmystic/sengfs19-group3/tree/master/Sprint-3
 
 
-### function
+### Website's Function
 * User can apply filter, pageing(10, 25, 50 100), and sorting with each columns.
-Repo page! User can check the table of the commit for each repos!
-Repo group page! User can check the table of the message and table of contributor for each repo group!
+Repo page! Users can check the table of the commits for each repos!
+Repo group page! Users can check the table of the message and table of contributor for each repo group!
 Table of message and table of contributor and switch using button in the top-left!
-Message table test link:http://129.114.104.142:4250/messages/20
-Contributor table test link:http://129.114.104.142:4250/contributors/20
-Info page table test link:http://129.114.104.142:4250/info/24/21623
+[Message table test link](http://129.114.104.142:4250/messages/20)
+[Contributor table test link](http://129.114.104.142:4250/contributors/20)
+[Info page table test link](http://129.114.104.142:4250/info/24/21623)
+[Sample API endpoint link for messages-by-contributor](http://129.114.104.142:5000/api/unstable/repo-groups/20/messages-by-contributor)
+[Sample API endpoint link for contributors-by-company](http://129.114.104.142:5000/api/unstable/repo-groups/20/contributors-by-company)
 
 
 
 ### Deployment Instructions
 * Deploy augur using the instructions provided by the augur read the docs website.
-* To deploy our project, the only other dependency we had to install was the ng-cli tool through npm package manager to deploy our website. This is assuming you have all the dependencies required for augur installed already <blockquote>npm install -g ng-cli</blockquote> and then go to the directory of our FinalSprintProject directory with our angular-based website. Then, we run the command <blockquote>ng serve --host=0.0.0.0 --port=4250</blockquote> this will deploy the website to be able to be reached from any host on the internet through port 4250.
+* To deploy our project, the only other dependency we had to install was the angular-cli tool through npm package manager to deploy our website(This requires having node.js and the npm package manager). This is assuming you have all the dependencies required for augur installed already <blockquote>npm install @angular/cli -g</blockquote> and then go to the directory of our FinalSprintProject directory with our angular-based website. Then, we run the command <blockquote>ng serve --host=0.0.0.0 --port=4250</blockquote> this will deploy the website to be able to be reached from any host on the internet through port 4250.
 
 
 ### Modified Code 
