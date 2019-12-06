@@ -25,7 +25,7 @@ info word version link:https://github.com/computationalmystic/sengfs19-group3/bl
     - Create contributors-by-company and messages-by-contributor API endpoints
     - Be able to display that data on a webpage using Angular
     - search data for specific repo groups and repos within those groups 
-    - show two versions which are graph display and display the data in a table 
+    - show the API endpoint's data display in a table 
 
 ### how the different software components communicate 
     List of the software component
