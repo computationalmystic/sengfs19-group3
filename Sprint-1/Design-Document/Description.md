@@ -51,7 +51,7 @@ info word version link:https://github.com/computationalmystic/sengfs19-group3/bl
   
     - The information displayed in Augur's website is a little buggy.
     - The website will show different information from the endpoints created
-    - Create a useful API endpoint that could be implemented in the form of a table or graph.
+    - Create a useful API endpoint that could be implemented in the form of a table.
     
 ### Links to Endpoints and Website
 * [Link for Contributors by Company API Endpoint](http://129.114.104.142:5000/api/unstable/repo-groups/20/contributors-by-company)
