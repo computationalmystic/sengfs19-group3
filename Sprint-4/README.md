@@ -325,7 +325,126 @@
         
         pytest -vs test_contributor_routes.py
   
- 
+ ### Testing Web Application
+ **API information:**
+1.   contributors   by   company:   it   shows   how   many   contributors   come   from   aspecify company.
+2.   message   by   contributor:   it   shows   how   many   messages   provide   by   eachcontributor
+3. repo group: show all repo group in database
+4. repo: show all repo in database 
+5. commits: show how many commits is post by specify user.
+**Function:**
+1. User can select any repo group to see the table of contributor and table ofmessage (if there have data from database, it will be show in the table.) User can test group ID:20, (http://129.114.104.142:4250/contributors/20).   There   a   button   which   can switch between message and contributor table on the top left.
+2. Use can select any repo pages to see the table of commit. User can testgroup id: 24 and repo id: 21623 (http://129.114.104.142:4250/info/24/21623)
+3. Use can  sort every  column,  just click  the  header  of  the  column  (such  assorting   commits   in   repo   page,   we   will   know   which   people   doing   mostcommits)
+4. User can change how many items show in each page in the bottom of thetable. Also, change go to next page and preview page.
+5. User can search data from table, user need to type in the filter bar abovethe table. (test data in repo, such as 21623.)
+**System integration:**
+**How we call the API:**
+1. use the httpclient in an API server JavaScript file to call API from server
+**Code example:**
+>
+
+    Public getGroups():Observable<any>{
+        console.log("called getGroups");
+        return
+    this.http.get('http://augur.osshealth.io:5000/api/unstable/repo-groups')
+    }
+    
+2. Import the JavaScript file to other component (such as repo, info, message ,repo group, contributors)
+3. use getter function to get the data from JavaScript file 
+4. Import mat table from Augular model and put all the data from API to themat table data source.
+
+**Code example:**
+>  
+
+        getter() {
+        this.apiService.getGroups().subscribe(data=>{
+            this.dataSource = newMatTableDataSource(data);
+            console.log(this.dataSource);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;    
+        
+        },(error:any)=>{
+            this.erro = error;
+            console.error("Error:",error);    
+        
+        });
+               
+        }
+
+5. Use applyFilter function to support searching.  
+>
+
+    applyFilter(filterValue:string){
+        this.dataSource.filter = filterValue.trim().toLowerCase();  
+    }
+    
+6. Check data source get the data or not 
+**Example code:**
+>
+    
+    <ng-container*ngIf="!dataSource">        
+            <h4>Loading repository group information...</h4>    
+    </ng-container>
+
+7. Use form field to create a filter bar
+>
+
+    <divclass = "search-div">
+        <mat-form-fieldclass="center"floatLabel="never">
+            <input matInput(keyup)="applyFilter($event.target.value)"
+            placeholder="Filter" >        
+                <button mat-buttonmatSuffixmat-icon-buttonaria-label = "Clear"
+            *ngIf="filterValue"(click)= "onSearchClear()">          
+                </button>      
+                </mat-form-field>
+            </div>
+            
+8. call the data from mat table data source to show in the table             
+>
+
+    <mat-table[dataSource]="dataSource"matSort>              
+            <ng-containermatColumnDef="cntrb_id">                
+                <mat-header-cell*matHeaderCellDefmat-sort-header> ID </mat-header-cell>                
+                <mat-cell*matCellDef="let message"> 
+            {{message.cntrb_id}} </mat-cell>              
+                </ng-container>
+            <ng-containermatColumnDef="messages">
+                    <mat-header-cell*matHeaderCellDefmat-sort-header> Message </mat-header-cell>
+                    <mat-cell*matCellDef="let message"> {{message.messages}} </mat-cell>
+                </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row*matRowDef="let row; columns: displayedColumns;"></mat-row> 
+                    
+                </mat-table>
+                
+9. apply paginator
+
+**Example code:**      
+>
+
+    <mat-paginator[pageSizeOptions]="[10,   25,   50,100]"showFirstLastButtons></mat-paginator>
+    
+10. router link between contributor table and message table
+**Example code**    
+>
+
+    <arouterLink="/contributors/{{this.urlGroupId}}"><buttonclass="Contributor"style="color:gray;margin-left: 2.5%;"> Contributor Table</button></a>
+    <divclass = "search-div">
+    
+11. router link to table of commit
+**Example code:**
+>
+
+    <arouterLink ="/info/{{repo.repo_group_id}}/{{repo.repo_id}}">
+        {{repo.repo_name}} </a>  </mat-cell>
+        
+12. router link table of contributor
+**Example code:**  
+>
+
+    <arouterLink ="/contributors/{{repog.repo_group_id}}">
+        {{repog.repo_group_id}}</a>
  
  
  
