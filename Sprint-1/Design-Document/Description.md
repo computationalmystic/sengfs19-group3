@@ -1,13 +1,13 @@
-# Design Document group3 <br><br> Created by Graeson, Zachanry, Guangzu
+# Design Document Group 3 <br><br> Created by Graeson, Zachanry, Guangzu
 
-## what is necessary for your use cases to lead into a solution
+### what is necessary for your use cases to lead into a solution
 
-### usecase:
+### Use Case:
 1. https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/use%20case%201.jpg
 2. https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/use%20case%202.jpg
 3. https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/use%20case%203.jpg
 
-### wireframes:
+### Wireframes:
 repo link:https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/Repo-page.jpg <br>
 repo group link:https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/Repo-group-page.jpg<br>
 info word version link:https://github.com/computationalmystic/sengfs19-group3/blob/master/Sprint-1/Design-Document/Info-page.jpg<br>
@@ -28,7 +28,7 @@ info word version link:https://github.com/computationalmystic/sengfs19-group3/bl
     - show two versions which are graph display and display the data in a table 
 
 ## how the different software components communicate 
-    list of the software compoent
+    List of the software component
     - Augur
     - Postgresql database
     - Angular Webpage
@@ -37,18 +37,18 @@ info word version link:https://github.com/computationalmystic/sengfs19-group3/bl
     - Python3.0+ 
     - Python virtual environment
     
-    - user can see the list of the request they can do in application by different pages on website.
+    - User can see the list of the request they can do in application by different pages on website.
     - Data Access objects set up the data structure created from metric endpoints
-    - user can choose the request from the list.
+    - User can choose the request from the list.
     - Models handle request and data processing.
     - Controller receive request to call metric function from metric route (Plugins).
-    - services save the data
-    - application can get data (data structure from data Access object) from serveice by calling Api 
+    - Services save the data
+    - Application can get data (data structure from data Access object) from serveice by calling Api 
     
     
 
 ## Document the reasons for your decision where you have choices in desgin
   
-    - the information displayed in Augur's website is a little buggy.
-    - the word and graph way will show different information from the endpoints created
+    - The information displayed in Augur's website is a little buggy.
+    - The word and graph way will show different information from the endpoints created
     - Create a useful API endpoint that could be implemented in the form of a table or graph.
