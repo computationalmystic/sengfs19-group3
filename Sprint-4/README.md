@@ -268,11 +268,63 @@
         assert metrics.messages_by_contributor(20, repo_id=21000).iloc[0]['messages'] > 0
         assert metrics.messages_by_contributor(20).iloc[0]['messages'] > 0
 
+
+
+
+### Testing Metric Functions and Metric Routes
+1. After creating the endpoints, we created pytest functions to ensure the endpoints wouldn't fail.
+2. Create pytest functions for metric functions
+> 
+
+    def test_contributors_by_companys(metrics):
+    
+         #repo_group_id
+         assert metrics.contributors_by_company(20).iloc[0]['counter'] > 0
+
+         #repo_id
+         assert metrics.contributors_by_company(20, repo_id=25432).iloc[0]['counter'] > 0
+
+    def test_messages(metrics):
+        # repo id
+        assert metrics.messages_by_contributor(20, repo_id=21000).iloc[0]['messages'] > 0
+
+        #repo group
+        assert metrics.messages_by_contributor(20).iloc[0]['messages'] > 0
+
+3. Create pytest functions for metric routes
+>       
+
+        def test_contributors_by_company_group(metrics):
+            response = requests.get('http://localhost:5000/api/unstable/repo-groups/20/contributors-by-company')
+            data = response.json()
+            assert response.status_code == 200
+            assert len(data) >= 1
+            
+        def test_messages_by_contributor_by_group(metrics):
+            response = requests.get('http://localhost:5000/api/unstable/repo-groups/21/messages-by-contributor')
+            data = response.json()
+            assert response.status_code == 200
+            assert len(data) >= 1
+            
+        def test_contributors_by_company_repo(metrics):
+            response = requests.get('http://localhost:5000/api/unstable/repo-groups/20/repos/25432/contributors-by-company')
+            data = response.json()
+            assert response.status_code == 200
+            assert len(data) >= 1
+            
+        def test_messages_by_contributor_by_repo(metrics):
+            response = requests.get('http://localhost:5000/api/unstable/repo-groups/21/repos/21222/messages-by-contributor')
+            data = response.json()
+            assert response.status_code == 200
+            assert len(data) >= 1
+            
+ 4. Test the metric functions and metric routes using pytest
+ >
  
- 
- 
- 
- 
+        pytest -vs test_contributor_functions.py
+        
+        pytest -vs test_contributor_routes.py
+  
  
  
  
