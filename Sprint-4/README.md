@@ -252,9 +252,9 @@ Info page table test link:http://129.114.104.142:4250/info/24/21623
         
 11. Then we created the web GUI for displaying our endpoints using Angular framework
 
-* (Link to angular changes part 1)[https://github.com/computationalmystic/sengfs19-group3/commit/f81da6cc12133f5d3a4a6742d97646d09f758ca9]
+* [Link to angular changes part 1](https://github.com/computationalmystic/sengfs19-group3/commit/f81da6cc12133f5d3a4a6742d97646d09f758ca9)
 
-* (Link to angular changes part 2)[https://github.com/computationalmystic/sengfs19-group3/commit/7bc8b896d1fd4ef52f6702b0a35f4c4dc5184a90]
+* [Link to angular changes part 2](https://github.com/computationalmystic/sengfs19-group3/commit/7bc8b896d1fd4ef52f6702b0a35f4c4dc5184a90)
 
  
  
